@@ -474,3 +474,10 @@ Note that this functionality requires the `worldedit_brush` mod enabled.
 		//brush cube 8 8 8 Cobblestone
 		//brush spr 12 glass
 		//brush none
+
+### `//maze <node_wall> <node_path> e(lliptic)/r(ectangle) m(ulti)/s(ingle) path_width f(ixed)/r(andom)`
+
+Creates a maze in the current WorldEdit region with `<node_wall>`. The exit path can become viewable using `<node_path>`. The maze can be `elliptic` to create an elliptic tower instead of a `rectangle` tower. If `multi` is selected, the tower will be filled with several mazes of 4 blocks high each. The `path_width` value determines the number of blocks used for the path width and the walls width either. `fixed` means that the entrance will always be at the same place, and the exit either. 
+
+		//maze stone stone elliptic single 1 fixed 
+		//maze stone cobblestone r m 3 f

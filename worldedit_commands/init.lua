@@ -405,6 +405,43 @@ minetest.register_chatcommand("/set", {
 	end, check_region),
 })
 
+minetest.register_chatcommand("/maze", {
+	params = "<node_wall> <node_path> e(lliptic)/r(ectangle) m(ulti)/s(ingle) path_width f(ixed)/r(andom)",
+	description = "Create a maze in the current WorldEdit region with <node_wall>",
+	privs = {worldedit=true},
+	func = safe_region(function(name, param)
+    local found, _, nodewallname, nodepathname, elliptic, multi, path_width, fixed = param:find("^(%S+)%s+(%S+)%s+(%S+)%s+(%S+)%s+(%d+)%s+(.+)$")
+    if found == nil then
+      worldedit.player_notify(name, "invalid usage: " .. param)
+      return nil
+    end
+		local nodewall = get_node(name, nodewallname)
+		if not nodewall then return end
+		local nodepath = get_node(name, nodepathname)
+		if not nodepath then return end
+    if string.lower(string.sub(elliptic, 1, 1)) == "e" then
+      elliptic = true
+    else
+      elliptic = false
+    end
+    if string.lower(string.sub(multi, 1, 1)) == "m" then
+      multi = true
+    else
+      multi = false
+    end
+    if string.lower(string.sub(fixed, 1, 1)) == "f" then
+      fixed = true
+    else
+      fixed = false
+    end
+    
+    minetest.chat_send_all("Maze params : "..nodewallname.."/"..nodepathname.."/"..tostring(elliptic).."/"..tostring(multi).."/"..tostring(path_width).."/"..tostring(fixed))
+    
+		local count = worldedit.insert_maze(worldedit.pos1[name], worldedit.pos2[name], nodewall, nodepath, elliptic, multi, path_width, fixed)
+		worldedit.player_notify(name, count .. " nodes set")
+	end, check_region),
+})
+
 minetest.register_chatcommand("/param2", {
 	params = "<param2>",
 	description = "Set param2 of all nodes in the current WorldEdit region to <param2>",

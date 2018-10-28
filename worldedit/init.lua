@@ -40,7 +40,7 @@ load_module(path .. "/serialization.lua")
 load_module(path .. "/code.lua")
 load_module(path .. "/compatibility.lua")
 load_module(path .. "/cuboid.lua")
-
+load_module(path .. "/maze.lua")
 
 if minetest.setting_getbool("log_mods") then
 	print("[WorldEdit] Loaded!")
